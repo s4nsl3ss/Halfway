@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MeetUp</string>
+    <string name="app_name">Halfway</string>
     <string name="action_settings">Settings</string>
     <string name="gps_loc">locating…</string>
     <string name="gps_f">please insert GPS or address…</string>
