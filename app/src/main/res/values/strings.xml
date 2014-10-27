@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MeetUp</string>
+    <string name="action_settings">Settings</string>
+    <string name="gps_loc">locating…</string>
+    <string name="gps_f">please insert GPS or address…</string>
+    <string name="labelm">My GPS location:</string>
+    <string name="labelf">Friends GPS location:</string>
+    <string name="b_locate">My GPS Location</string>
+    <string name="b_map">Meet me halfway</string>
+    <string name="title_activity_startscreen">Startscreen</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
