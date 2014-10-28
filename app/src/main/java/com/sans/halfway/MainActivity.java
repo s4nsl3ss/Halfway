@@ -31,18 +31,15 @@ public class MainActivity extends Activity {
     private String friends;
     private TextView txtwindow;
     private GeoPoint myloc = new GeoPoint(0, 0);
-    private FbReferencer fibi;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
         txmyloc = (TextView) findViewById(R.id.gps_my);
         txfloc = (EditText) findViewById(R.id.gpsf);
         txtwindow = (TextView) findViewById(R.id.textfullview1);
-        fibi=new FbReferencer();
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {

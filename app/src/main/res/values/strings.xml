@@ -11,5 +11,12 @@
     <string name="b_map">Meet me halfway</string>
     <string name="title_activity_startscreen">Startscreen</string>
     <string name="hello_world">Hello world!</string>
+    <string name="signin">SignIn</string>
+    <string name="username">Username</string>
+    <string name="pwd">Password</string>
+    <string name="login">Login</string>
+    <string name="skip">Skip</string>
+    <string name="register">Register</string>
+    <string name="mail">Email</string>
 
 </resources>
