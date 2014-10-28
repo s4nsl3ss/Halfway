@@ -21,6 +21,7 @@ public class Startscreen extends Activity {
 
     private EditText uname;
     private EditText pwd;
+    private EditText email;
     private Button signin;
     private Button login;
     private Button skip;
@@ -30,27 +31,28 @@ public class Startscreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_start);
+        email = (EditText) findViewById(R.id.tv_mail);
         uname = (EditText) findViewById(R.id.tv_user);
         pwd = (EditText) findViewById(R.id.tv_pwd);
         signin = (Button) findViewById(R.id.bu_signin);
         login = (Button) findViewById(R.id.bu_login);
         skip = (Button) findViewById(R.id.bu_skip);
 
-        Firebase.setAndroidContext(this);
         ref = new Firebase("https://boiling-inferno-8767.firebaseio.com/");
 
         signin.setOnClickListener(new View.OnClickListener() {
 
           public void onClick(View v) {
 
-               ref.createUser(uname.getText().toString(), pwd.getText().toString(), new Firebase.ResultHandler() {
+               ref.createUser(email.getText().toString(), pwd.getText().toString(), new Firebase.ResultHandler() {
                      public void onSuccess() {
-                         Toast.makeText(getApplicationContext(), "Registering was successful", Toast.LENGTH_LONG).show();
+                         Toast.makeText(getApplicationContext(), "Registering was successful.\n You can login now.", Toast.LENGTH_LONG).show();
                                     }
 
                          public void onError(FirebaseError firebaseError) {
-                         Toast.makeText(getApplicationContext(), "Registering failed"+firebaseError, Toast.LENGTH_LONG).show();
+                         Toast.makeText(getApplicationContext(), "Registering failed: "+firebaseError, Toast.LENGTH_LONG).show();
                   }
                  });
               }
@@ -59,10 +61,14 @@ public class Startscreen extends Activity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ref.authWithPassword(uname.getText().toString(), pwd.getText().toString(), new Firebase.AuthResultHandler() {
+                ref.authWithPassword(email.getText().toString(), pwd.getText().toString(), new Firebase.AuthResultHandler() {
                     @Override
                     public void onAuthenticated(AuthData authData) {
-                        Toast.makeText(getApplicationContext(), "User ID: " + authData.getUid() + ", Provider: " + authData.getProvider(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "User ID: " + authData.getUid(), Toast.LENGTH_LONG).show();
+                        ref.child("name").setValue(uname.getText().toString());
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
 
                     @Override
@@ -79,6 +85,7 @@ public class Startscreen extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+                finish();
             }
 
         });

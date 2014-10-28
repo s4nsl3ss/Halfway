@@ -12,9 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.firebase.client.Firebase;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +56,8 @@ public class MainActivity extends Activity {
                 }
             }
         };
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 600, 50, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
         final Button button1 = (Button) findViewById(R.id.bu_route);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -104,9 +102,8 @@ public class MainActivity extends Activity {
             txfloc.setText("");
             return;
         }
-        if (locals.equals("unknown") || ((!locals.matches("^-?[0-9]{1,3}(.[0-9]{0,16})?,-?[0-9]{1,3}(.[0-9]{0,16})?$")) && (!locals.matches("^[a-zA-Z]{1,50}\\s?([0-9]{0,4})?\\s?([0-9]{4})?\\s?([a-zA-Z]{1,30})?$")))) {
+        if (!locals.matches("^-?[0-9]{1,3}(.[0-9]{0,16})?,-?[0-9]{1,3}(.[0-9]{0,16})?$") && !locals.matches("^[a-zA-Z]{1,50}\\s?([0-9]{0,4})?\\s?([0-9]{4})?\\s?([a-zA-Z]{1,30})?$")) {
             txtwindow.setText("False input");
-            txfloc.setText("Address or GPS");
             return;
         }
         friends = locals;
@@ -124,7 +121,7 @@ public class MainActivity extends Activity {
               //  Log.i("REQUEST","Starting Request Location");
                 jpar.getJSONFromUrl(makeGeoURL(locals), new ResponseListener() {
                     public void onResponseComplete(String response) {
-                        //Log.d("onResponse ", response);
+                        //Log.i("onResponse ", response);
                         Log.i("REQUEST",response);
                         try {
                             final JSONObject json = new JSONObject(response);
